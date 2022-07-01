@@ -1,0 +1,16 @@
+{
+  "name": "nature",
+  "version": "1.0.0",
+  "description": "learning express",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Riyad",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^5.13.14"
+  }
+}
