@@ -1,3 +1,4 @@
+const { findOneAndDelete } = require('./../Model/TourModel');
 const Tour = require('./../Model/TourModel');
 
 exports.getAllTours = async (req, res) => {
@@ -30,9 +31,13 @@ exports.getToursById = async (req, res) => {
 
 exports.updateTour = async (req, res) => {
   try {
-    const Id =  req.params.id;
-    
-    const updatedTour = await Tour.updateOne({_id:Id},{ $set: req.body} , { new: true });
+    const Id = req.params.id;
+
+    const updatedTour = await Tour.updateOne(
+      { _id: Id },
+      { $set: req.body },
+      { new: true }
+    );
 
     res.status(200).json({
       status: 'Success',
@@ -58,5 +63,18 @@ exports.createTour = async (req, res) => {
     });
   } catch (err) {
     res.json(err);
+  }
+};
+
+exports.deleteTour = async (req, res) => {
+  try {
+    await Tour.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      message: 'success',
+    });
+  } catch (err) {
+    res.status(404).json({
+      message: 'something went wrong',
+    });
   }
 };

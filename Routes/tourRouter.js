@@ -9,7 +9,10 @@ route
   .get(tourController.getAllTours)
   .post(tourController.createTour);
 
-route.get('/:id', tourController.getToursById);
-route.put('/:id',tourController.updateTour);
+route
+  .route('/:id')
+  .get(tourController.getToursById)
+  .put(tourController.updateTour)
+  .delete(tourController.deleteTour);
 
 module.exports = route;
