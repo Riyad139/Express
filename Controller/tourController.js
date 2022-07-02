@@ -2,11 +2,24 @@ const { findOneAndDelete } = require('./../Model/TourModel');
 const Tour = require('./../Model/TourModel');
 
 exports.getAllTours = async (req, res) => {
+  let objQuery = { ...req.query };
+  const excludeField = ['page', 'sort', 'limit', 'fields'];
+  excludeField.forEach((el) => delete objQuery[el]);
+
+  let queryStr = JSON.stringify(objQuery);
+
+  objQuery = JSON.parse(
+    queryStr.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`)
+  );
+
+  console.log(req.query, objQuery);
+
   try {
-    const tours = await Tour.find();
+    const tours = await Tour.find(objQuery);
 
     res.status(200).json({
       status: 'Success',
+      results: tours.length,
       data: {
         tours,
       },
