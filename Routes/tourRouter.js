@@ -9,6 +9,9 @@ route
   .get(tourController.getAllTours)
   .post(tourController.createTour);
 
+  route
+   .route('/states').get(tourController.getToursState);
+
 route
   .route('/:id')
   .get(tourController.getToursById)
